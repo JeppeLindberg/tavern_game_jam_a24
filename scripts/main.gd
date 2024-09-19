@@ -40,3 +40,19 @@ func _get_tilemap_children_recursive(node):
 			_result.append(child)
 				
 		_get_tilemap_children_recursive(child)
+	
+func get_nodes_at(pos, group = ''):
+	var point = PhysicsPointQueryParameters2D.new()
+	point.position = pos;
+	point.collide_with_areas = true
+	var collisions = get_world_2d().direct_space_state.intersect_point(point);
+	if collisions == null:
+		return([])
+	
+	var nodes = []
+	for collision in collisions:
+		var node = collision['collider'];
+		if (group == '') or node.is_in_group(group):
+			nodes.append(node)
+	return nodes
+	

@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://di3ptoulkfh7b"]
+
+[ext_resource type="Script" path="res://scripts/inventory_tile.gd" id="1_njx4d"]
+[ext_resource type="Texture2D" uid="uid://bf54vlicfi4vn" path="res://sprites/map.png" id="2_v8jmd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pqs0n"]
+size = Vector2(32, 32)
+
+[node name="inventory_tile" type="StaticBody2D"]
+script = ExtResource("1_njx4d")
+
+[node name="collider" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_pqs0n")
+debug_color = Color(0.765602, 0.215052, 0.956368, 0.42)
+
+[node name="sprite" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_v8jmd")
+region_enabled = true
+region_rect = Rect2(32, 224, 32, 32)
+region_filter_clip_enabled = true
