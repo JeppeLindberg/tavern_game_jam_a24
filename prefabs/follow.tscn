@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://g1qrt0av6blw"]
+
+[node name="follow" type="PathFollow2D"]
+position = Vector2(334, 384)
+rotation = -1.57989
+rotates = false
