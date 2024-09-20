@@ -4,8 +4,8 @@ var shootable = 0
 
 var powered = false
 
-@onready var main:Node2D = get_node('/root/main')
-@onready var effects:Node2D = get_node('/root/main/effects')
+@onready var main:Node = get_node('/root/main')
+@onready var effects:Node2D = get_node('/root/main/game/effects')
 
 @export var shots_per_sec = 0.1
 @export var bullet_speed = 100.0
@@ -21,9 +21,9 @@ func _process(_delta: float) -> void:
 		shootable += main.delta_secs()
 
 		if shootable >= 0:
-			var charged_time = (1 / shots_per_sec);
+			var charged_time = shootable;
 			if _try_shoot(charged_time):
-				shootable -= charged_time;
+				shootable -= (1 / shots_per_sec);
 			else:
 				shootable = 0
 
@@ -34,7 +34,7 @@ func set_powered(new_powered):
 func _try_shoot(charged_time):	
 	var bullet = main.create_node(bullet_prefab, effects)
 	bullet.global_position = global_position
-	bullet.velocity = global_transform.basis_xform(Vector2.RIGHT) * bullet_speed
+	bullet.velocity = get_parent().global_transform.basis_xform(Vector2.RIGHT) * bullet_speed
 	bullet.charge_time(charged_time)
 	return true;
 

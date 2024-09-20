@@ -4,8 +4,8 @@ var shootable = 0
 
 var powered = false
 
-@onready var main:Node2D = get_node('/root/main')
-@onready var effects:Node2D = get_node('/root/main/effects')
+@onready var main:Node = get_node('/root/main')
+@onready var effects:Node2D = get_node('/root/main/game/effects')
 @onready var collider:CollisionShape2D = get_node('collider')
 
 @export var shots_per_sec = 0.1

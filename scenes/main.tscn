@@ -1,15 +1,21 @@
-[gd_scene load_steps=12 format=4 uid="uid://d20di8qihq3kr"]
+[gd_scene load_steps=16 format=4 uid="uid://d20di8qihq3kr"]
 
 [ext_resource type="TileSet" uid="uid://c7erlb2ig5mgi" path="res://tileset.tres" id="1_88jxe"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_pygd1"]
 [ext_resource type="PackedScene" uid="uid://damcrpw8xfy6u" path="res://prefabs/enemy.tscn" id="2_pr7xw"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="3_ie3tw"]
 [ext_resource type="Script" path="res://scripts/tiles.gd" id="3_u7amg"]
+[ext_resource type="Texture2D" uid="uid://bf54vlicfi4vn" path="res://sprites/map.png" id="3_ybh3m"]
+[ext_resource type="FontFile" uid="uid://dj3dtbvwijcqq" path="res://fonts/ark-pixel-12px-proportional-latin.otf" id="4_0fcbf"]
 [ext_resource type="PackedScene" uid="uid://cqwb8ofia7hjd" path="res://prefabs/powered_tile.tscn" id="4_dvv0h"]
 [ext_resource type="Script" path="res://scripts/path.gd" id="4_yvfx1"]
 [ext_resource type="PackedScene" uid="uid://di3ptoulkfh7b" path="res://prefabs/inventory_tile.tscn" id="7_0xxjd"]
 [ext_resource type="PackedScene" uid="uid://csxmaro11gudj" path="res://prefabs/buildings/lightning_tower.tscn" id="9_ang0u"]
 [ext_resource type="PackedScene" uid="uid://mfvh04f4ycms" path="res://prefabs/buildings/minigun_tower.tscn" id="10_8mggg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s2nk3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ok47m"]
 
 [sub_resource type="Curve2D" id="Curve2D_i4qol"]
 bake_interval = 1.0
@@ -18,39 +24,132 @@ _data = {
 }
 point_count = 7
 
-[node name="main" type="Node2D"]
+[node name="main" type="Node"]
 script = ExtResource("1_pygd1")
 enemy_prefab = ExtResource("2_pr7xw")
 basic_layer = 1
 enemy_layer = 2
 
-[node name="bottom" type="TileMapLayer" parent="."]
+[node name="ui" type="Control" parent="."]
+z_index = 1000
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+
+[node name="upgrade_screen" type="Control" parent="ui"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="h_container" type="HBoxContainer" parent="ui/upgrade_screen"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -102.0
+offset_right = 102.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="selection" type="VBoxContainer" parent="ui/upgrade_screen/h_container"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="container" type="PanelContainer" parent="ui/upgrade_screen/h_container/selection"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_s2nk3")
+
+[node name="panel" type="NinePatchRect" parent="ui/upgrade_screen/h_container/selection/container"]
+layout_mode = 2
+texture = ExtResource("3_ybh3m")
+region_rect = Rect2(122, 186, 44, 44)
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+
+[node name="margin" type="MarginContainer" parent="ui/upgrade_screen/h_container/selection/container"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="h_container" type="HBoxContainer" parent="ui/upgrade_screen/h_container/selection/container/margin"]
+layout_mode = 2
+
+[node name="center" type="CenterContainer" parent="ui/upgrade_screen/h_container/selection/container/margin/h_container"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ui/upgrade_screen/h_container/selection/container/margin/h_container/center"]
+modulate = Color(0.94902, 0.941176, 0.898039, 1)
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("4_0fcbf")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "[center]The quick brown fox jumps over the lazy dog"
+fit_content = true
+
+[node name="fill" type="PanelContainer" parent="ui/upgrade_screen/h_container/selection/container/margin/h_container"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ok47m")
+
+[node name="fill" type="Panel" parent="ui/upgrade_screen/h_container"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="fill2" type="Panel" parent="ui/upgrade_screen/h_container"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="game" type="Node2D" parent="."]
+
+[node name="bottom" type="TileMapLayer" parent="game"]
 tile_map_data = PackedByteArray("AAAAAAAAAAABAAAAAAAAAAEAAAABAAAAAAAAAAIAAAABAAAAAAAAAAMAAAABAAAAAAAAAAQAAAABAAAAAAAAAAUAAAABAAAAAAAAAAYAAAABAAAAAAAAAAcAAAABAAAAAAAAAAgAAAABAAAAAAAAAAkAAAABAAAAAAAAAAoAAAABAAAAAAAAAAsAAAABAAAAAAABAAsAAAABAAAAAAACAAsAAAABAAAAAAADAAsAAAABAAAAAAAEAAsAAAABAAAAAAAFAAsAAAABAAAAAAAGAAsAAAABAAAAAAAHAAsAAAABAAAAAAAIAAsAAAABAAAAAAAJAAsAAAABAAAAAAAKAAsAAAAAAAAAAAALAAsAAAABAAAAAAAMAAsAAAABAAAAAAANAAsAAAABAAAAAAAOAAsAAAABAAAAAAAPAAsAAAABAAAAAAAQAAsAAAABAAAAAAARAAsAAAABAAAAAAASAAsAAAABAAAAAAATAAsAAAABAAAAAAATAAoAAAABAAAAAAATAAkAAAABAAAAAAATAAgAAAABAAAAAAATAAcAAAABAAAAAAATAAYAAAABAAAAAAATAAUAAAABAAAAAAATAAQAAAABAAAAAAATAAMAAAABAAAAAAATAAIAAAABAAAAAAATAAEAAAABAAAAAAATAAAAAAABAAAAAAASAAAAAAABAAAAAAARAAAAAAABAAAAAAAQAAAAAAABAAAAAAAPAAAAAAABAAAAAAAOAAAAAAABAAAAAAANAAAAAAABAAAAAAAMAAAAAAABAAAAAAALAAAAAAABAAAAAAAKAAAAAAABAAAAAAAJAAAAAAABAAAAAAAIAAAAAAABAAAAAAAHAAAAAAABAAAAAAAGAAAAAAABAAAAAAAFAAAAAAABAAAAAAAEAAAAAAABAAAAAAADAAAAAAABAAAAAAACAAAAAAABAAAAAAABAAAAAAABAAAAAAAFAAQAAAAAAAAAAAAFAAMAAAAAAAAAAAAFAAIAAAAAAAAAAAAFAAEAAAABAAAAAAAEAAEAAAABAAAAAAADAAEAAAAHAAAAAAACAAEAAAAHAAAAAAABAAEAAAAHAAAAAAABAAIAAAAHAAAAAAABAAMAAAAHAAAAAAABAAQAAAAHAAAAAAABAAUAAAAHAAAAAAABAAYAAAAHAAAAAAABAAcAAAAHAAAAAAABAAgAAAAHAAAAAAABAAkAAAAHAAAAAAABAAoAAAABAAAAAAACAAoAAAABAAAAAAACAAkAAAAHAAAAAAACAAgAAAAHAAAAAAACAAcAAAAHAAAAAAACAAYAAAAHAAAAAAACAAUAAAAHAAAAAAACAAQAAAAHAAAAAAACAAMAAAAHAAAAAAACAAIAAAAHAAAAAAADAAIAAAAHAAAAAAADAAMAAAAHAAAAAAADAAQAAAAHAAAAAAADAAUAAAAHAAAAAAADAAYAAAAHAAAAAAADAAcAAAAHAAAAAAADAAgAAAAHAAAAAAADAAkAAAAHAAAAAAADAAoAAAABAAAAAAAEAAoAAAABAAAAAAAEAAkAAAABAAAAAAAEAAgAAAABAAAAAAAEAAcAAAABAAAAAAAEAAYAAAABAAAAAAAEAAUAAAABAAAAAAAEAAQAAAABAAAAAAAEAAMAAAABAAAAAAAEAAIAAAABAAAAAAAFAAUAAAAAAAAAAAAFAAYAAAAAAAAAAAAFAAcAAAAAAAAAAAAFAAgAAAAAAAAAAAAFAAkAAAABAAAAAAAFAAoAAAABAAAAAAAGAAoAAAABAAAAAAAGAAkAAAABAAAAAAAGAAgAAAAAAAAAAAAGAAcAAAABAAAAAAAGAAYAAAABAAAAAAAGAAUAAAABAAAAAAAGAAQAAAABAAAAAAAGAAMAAAABAAAAAAAGAAIAAAAAAAAAAAAGAAEAAAABAAAAAAAHAAEAAAABAAAAAAAHAAIAAAAAAAAAAAAHAAMAAAABAAAAAAAHAAQAAAABAAAAAAAHAAUAAAABAAAAAAAHAAYAAAABAAAAAAAHAAcAAAABAAAAAAAHAAgAAAAAAAAAAAAHAAkAAAABAAAAAAAHAAoAAAABAAAAAAAIAAoAAAABAAAAAAAIAAkAAAABAAAAAAAIAAgAAAAAAAAAAAAIAAcAAAABAAAAAAAIAAYAAAABAAAAAAAIAAUAAAABAAAAAAAIAAQAAAABAAAAAAAIAAMAAAABAAAAAAAIAAIAAAAAAAAAAAAIAAEAAAABAAAAAAAJAAEAAAABAAAAAAAJAAIAAAAAAAAAAAAJAAMAAAABAAAAAAAJAAQAAAACAAAAAAAJAAUAAAACAAAAAAAJAAYAAAACAAAAAAAJAAcAAAABAAAAAAAJAAgAAAAAAAAAAAAJAAkAAAABAAAAAAAJAAoAAAABAAAAAAAKAAoAAAAAAAAAAAAKAAkAAAAAAAAAAAAKAAgAAAAAAAAAAAAKAAcAAAABAAAAAAAKAAYAAAACAAAAAAAKAAUAAAACAAAAAAAKAAQAAAACAAAAAAAKAAMAAAABAAAAAAAKAAIAAAAAAAAAAAAKAAEAAAABAAAAAAALAAEAAAABAAAAAAALAAIAAAAAAAAAAAALAAMAAAABAAAAAAALAAQAAAACAAAAAAALAAUAAAACAAAAAAALAAYAAAACAAAAAAALAAcAAAABAAAAAAALAAgAAAABAAAAAAALAAkAAAABAAAAAAALAAoAAAABAAAAAAAMAAoAAAABAAAAAAAMAAkAAAABAAAAAAAMAAgAAAABAAAAAAAMAAcAAAABAAAAAAAMAAYAAAABAAAAAAAMAAUAAAABAAAAAAAMAAQAAAABAAAAAAAMAAMAAAABAAAAAAAMAAIAAAAAAAAAAAAMAAEAAAABAAAAAAANAAEAAAABAAAAAAANAAIAAAAAAAAAAAANAAMAAAABAAAAAAANAAQAAAABAAAAAAANAAUAAAABAAAAAAANAAYAAAABAAAAAAANAAcAAAABAAAAAAANAAgAAAABAAAAAAANAAkAAAABAAAAAAANAAoAAAABAAAAAAAOAAoAAAABAAAAAAAOAAkAAAABAAAAAAAOAAgAAAABAAAAAAAOAAcAAAABAAAAAAAOAAYAAAABAAAAAAAOAAUAAAAAAAAAAAAOAAQAAAABAAAAAAAOAAMAAAABAAAAAAAOAAIAAAAAAAAAAAAOAAEAAAABAAAAAAAPAAEAAAABAAAAAAAPAAIAAAAAAAAAAAAPAAMAAAAAAAAAAAAPAAQAAAAAAAAAAAAPAAUAAAAAAAAAAAAPAAYAAAABAAAAAAAPAAcAAAABAAAAAAAPAAgAAAABAAAAAAAPAAkAAAABAAAAAAAPAAoAAAABAAAAAAAQAAoAAAABAAAAAAAQAAkAAAABAAAAAAAQAAgAAAABAAAAAAAQAAcAAAABAAAAAAAQAAYAAAABAAAAAAAQAAUAAAABAAAAAAAQAAQAAAABAAAAAAAQAAMAAAABAAAAAAAQAAIAAAABAAAAAAAQAAEAAAABAAAAAAARAAEAAAABAAAAAAARAAIAAAABAAAAAAARAAMAAAABAAAAAAARAAQAAAABAAAAAAARAAUAAAABAAAAAAARAAYAAAABAAAAAAARAAcAAAABAAAAAAARAAgAAAABAAAAAAARAAkAAAABAAAAAAARAAoAAAABAAAAAAASAAoAAAABAAAAAAASAAkAAAABAAAAAAASAAgAAAABAAAAAAASAAcAAAABAAAAAAASAAYAAAABAAAAAAASAAUAAAABAAAAAAASAAQAAAABAAAAAAASAAMAAAABAAAAAAASAAIAAAABAAAAAAASAAEAAAABAAAAAAA=")
 tile_set = ExtResource("1_88jxe")
 
-[node name="player" type="Node2D" parent="." groups=["player"]]
+[node name="player" type="Node2D" parent="game" groups=["player"]]
 script = ExtResource("3_ie3tw")
 
-[node name="tiles" type="Node2D" parent="."]
+[node name="tiles" type="Node2D" parent="game"]
 script = ExtResource("3_u7amg")
 powered_node = ExtResource("4_dvv0h")
 inventory_node = ExtResource("7_0xxjd")
 
-[node name="path" type="Path2D" parent="."]
+[node name="path" type="Path2D" parent="game"]
 curve = SubResource("Curve2D_i4qol")
 script = ExtResource("4_yvfx1")
 time_between_spawns = 0.75
 
-[node name="active" type="Node2D" parent="."]
+[node name="active" type="Node2D" parent="game"]
 
-[node name="effects" type="Node2D" parent="."]
+[node name="effects" type="Node2D" parent="game"]
 
-[node name="recycler" type="Node2D" parent="."]
+[node name="recycler" type="Node2D" parent="game"]
 
-[node name="inventory" type="Node2D" parent="."]
+[node name="inventory" type="Node2D" parent="game"]
 
-[node name="footprint" parent="inventory" instance=ExtResource("9_ang0u")]
+[node name="footprint" parent="game/inventory" instance=ExtResource("9_ang0u")]
 position = Vector2(75, 77)
 
-[node name="minigun_tower" parent="inventory" instance=ExtResource("10_8mggg")]
+[node name="minigun_tower" parent="game/inventory" instance=ExtResource("10_8mggg")]
 position = Vector2(112, 192)

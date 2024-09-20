@@ -1,7 +1,7 @@
 extends Node2D
 
-@onready var main:Node2D = get_node('/root/main')
-@onready var bottom: TileMapLayer = get_node('/root/main/bottom')
+@onready var main:Node = get_node('/root/main')
+@onready var bottom: TileMapLayer = get_node('/root/main/game/bottom')
 
 @export var powered_node: PackedScene
 @export var inventory_node: PackedScene

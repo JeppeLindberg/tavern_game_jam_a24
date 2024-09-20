@@ -1,6 +1,7 @@
-extends Node2D
+extends Node
 
-@onready var tiles:Node2D = get_node('/root/main/tiles')
+@onready var game:Node2D = get_node('/root/main/game')
+@onready var tiles:Node2D = get_node('/root/main/game/tiles')
 
 @export var enemy_prefab: PackedScene
 @export_flags_2d_physics var basic_layer
@@ -57,7 +58,7 @@ func get_nodes_at(pos, group = '', collision_mask = 0):
 		point.collision_mask = collision_mask
 	else:
 		point.collision_mask = basic_layer
-	var collisions = get_world_2d().direct_space_state.intersect_point(point);
+	var collisions = game.get_world_2d().direct_space_state.intersect_point(point);
 	if collisions == null:
 		return([])
 	
@@ -79,7 +80,7 @@ func get_nodes_in_shape(collider, group = '', collision_mask = 0, motion = Vecto
 		shape.collision_mask = basic_layer
 	if motion != Vector2.ZERO:
 		shape.motion = motion
-	var collisions = get_world_2d().direct_space_state.intersect_shape(shape);
+	var collisions = game.get_world_2d().direct_space_state.intersect_shape(shape);
 	if collisions == null:
 		return([])
 	
@@ -99,8 +100,7 @@ func get_first_collision_in_ray(from, to, collision_mask = 0):
 		ray.collision_mask = collision_mask
 	else:
 		ray.collision_mask = basic_layer
-	var collision = get_world_2d().direct_space_state.intersect_ray(ray);
+	var collision = game.get_world_2d().direct_space_state.intersect_ray(ray);
 	
 	return collision;
 	
-

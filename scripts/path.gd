@@ -1,6 +1,6 @@
 extends Path2D
 
-@onready var main:Node2D = get_node('/root/main')
+@onready var main:Node = get_node('/root/main')
 
 @export var time_between_spawns: float
 

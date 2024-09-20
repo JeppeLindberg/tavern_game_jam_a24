@@ -1,6 +1,6 @@
 extends Area2D
 
-@onready var main:Node2D = get_node('/root/main')
+@onready var main:Node = get_node('/root/main')
 @onready var collider:CollisionShape2D = get_node('collider')
 
 var velocity:Vector2

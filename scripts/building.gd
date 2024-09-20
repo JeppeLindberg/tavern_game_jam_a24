@@ -1,10 +1,10 @@
 extends StaticBody2D
 
-@onready var main:Node2D = get_node('/root/main')
-@onready var bottom: TileMapLayer = get_node('/root/main/bottom')
-@onready var active: Node2D = get_node('/root/main/active')
-@onready var inventory: Node2D = get_node('/root/main/inventory')
-@onready var tiles: Node2D = get_node('/root/main/tiles')
+@onready var main:Node = get_node('/root/main')
+@onready var bottom: TileMapLayer = get_node('/root/main/game/bottom')
+@onready var active: Node2D = get_node('/root/main/game/active')
+@onready var inventory: Node2D = get_node('/root/main/game/inventory')
+@onready var tiles: Node2D = get_node('/root/main/game/tiles')
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -21,6 +21,9 @@ func _ready() -> void:
 
 func rotate_building():
 	rotation_degrees += 90
+	for child in get_children():
+		if child.is_in_group('tower'):
+			child.rotation_degrees -= 90;
 
 func drop():
 	var nodes = main.get_children_with_method(self, 'set_powered')
