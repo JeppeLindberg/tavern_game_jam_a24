@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://csxmaro11gudj"]
+
+[ext_resource type="Script" path="res://scripts/building.gd" id="1_3mknn"]
+[ext_resource type="Script" path="res://scripts/towers/lightning_tower.gd" id="2_klp0a"]
+[ext_resource type="PackedScene" uid="uid://dfruo24mky547" path="res://prefabs/explosion.tscn" id="3_vds6r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jbq41"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ppb6d"]
+size = Vector2(224, 224)
+
+[node name="lightning_tower" type="StaticBody2D"]
+script = ExtResource("1_3mknn")
+
+[node name="collider" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jbq41")
+
+[node name="collider2" type="CollisionShape2D" parent="."]
+position = Vector2(0, 32)
+shape = SubResource("RectangleShape2D_jbq41")
+
+[node name="collider3" type="CollisionShape2D" parent="."]
+position = Vector2(32, 32)
+shape = SubResource("RectangleShape2D_jbq41")
+
+[node name="collider4" type="CollisionShape2D" parent="."]
+position = Vector2(64, 32)
+shape = SubResource("RectangleShape2D_jbq41")
+
+[node name="tower" type="Area2D" parent="."]
+position = Vector2(32, 32)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("2_klp0a")
+shots_per_sec = 1.5
+explosion_prefab = ExtResource("3_vds6r")
+
+[node name="collider" type="CollisionShape2D" parent="tower"]
+shape = SubResource("RectangleShape2D_ppb6d")
+debug_color = Color(0, 0.650687, 0.0751695, 0.42)

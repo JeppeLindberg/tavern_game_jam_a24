@@ -1,6 +1,9 @@
-[gd_scene format=3 uid="uid://g1qrt0av6blw"]
+[gd_scene load_steps=2 format=3 uid="uid://g1qrt0av6blw"]
+
+[ext_resource type="Script" path="res://scripts/follow.gd" id="1_wyw5n"]
 
 [node name="follow" type="PathFollow2D"]
 position = Vector2(334, 384)
 rotation = -1.57989
 rotates = false
+script = ExtResource("1_wyw5n")

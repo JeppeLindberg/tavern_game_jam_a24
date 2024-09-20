@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfruo24mky547"]
+
+[ext_resource type="Script" path="res://scripts/explosion.gd" id="1_pmno5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xjdps"]
+radius = 20.025
+
+[node name="explosion" type="Area2D"]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_pmno5")
+
+[node name="collider" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_xjdps")
+debug_color = Color(0.989484, 0, 0.289902, 0.42)

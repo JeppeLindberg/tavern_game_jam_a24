@@ -8,7 +8,7 @@ extends StaticBody2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	add_to_group('tower')
+	add_to_group('building')
 
 	var avg_pos = Vector2.ZERO;
 	var no_of_shapes = 0
@@ -19,10 +19,18 @@ func _ready() -> void:
 	for child in get_children():
 		child.position -= avg_pos / no_of_shapes
 
+func rotate_building():
+	rotation_degrees += 90
 
 func drop():
-	if not _try_move_to_active():
+	var nodes = main.get_children_with_method(self, 'set_powered')
+	if _try_move_to_active():
+		for node in nodes:
+			node.set_powered(true)
+	else:
 		_move_to_inventory()
+		for node in nodes:
+			node.set_powered(false)
 
 var target_child_local_pos = Vector2.ZERO
 var tile_global_pos = Vector2.ZERO
@@ -46,7 +54,7 @@ func _move_to_inventory():
 	for child in tiles.get_children():
 		possible_offsets.append(child.global_position - global_position)
 
-	possible_offsets.sort_custom(_distance_ascending)
+	possible_offsets.sort_custom(_length_ascending)
 
 	for possible_offset in possible_offsets:
 		if _try_place(possible_offset, 'inventory_tile'):
@@ -63,13 +71,12 @@ func _try_place(offset, group):
 			if placeable_tiles.is_empty():
 				return false;
 				
-			target_child_local_pos = child.position + offset
+			target_child_local_pos = (child.global_position - global_position) + offset
 			tile_global_pos = placeable_tiles[0].global_position + offset
 		
 	return true
 
-
-func _distance_ascending(a, b):
+func _length_ascending(a, b):
 	return a.length() < b.length()
 			
 			
