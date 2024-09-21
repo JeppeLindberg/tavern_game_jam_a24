@@ -77,6 +77,10 @@ func _try_place(offset, group):
 			var placeable_tiles = main.get_nodes_at(child.global_position + offset, group)
 			if placeable_tiles.is_empty():
 				return false;
+			var buildings = main.get_nodes_at(child.global_position + offset, 'building')
+			for building in buildings:
+				if building != self:
+					return false;
 				
 			target_child_local_pos = (child.global_position - global_position) + offset
 			tile_global_pos = placeable_tiles[0].global_position + offset

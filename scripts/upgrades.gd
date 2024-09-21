@@ -21,4 +21,3 @@ func generate_upgrades():
 		node.queue_free()
 		
 	
-

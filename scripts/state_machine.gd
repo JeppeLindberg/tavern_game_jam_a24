@@ -6,7 +6,7 @@ extends Node2D
 @onready var upgrades:Node2D = get_node('/root/main/game/upgrades')
 @onready var selection:Control = get_node('/root/main/ui/upgrade_screen/h_container/selection')
 
-var _state:String
+var state:String
 
 @export var enemy_prefab: PackedScene
 
@@ -16,12 +16,12 @@ func _ready() -> void:
 func go_to_prepare():
 	for child in selection.get_children():
 		child.queue_free()
-	_state = 'prepare'
+	state = 'prepare'
 	prepare_screen.enable()
 	upgrade_screen.disable()
 
 func go_to_simulate():
-	_state = 'simulate'
+	state = 'simulate'
 	prepare_screen.disable()
 	upgrade_screen.disable()
 
@@ -33,7 +33,7 @@ func go_to_simulate():
 	main.create_node(enemy_prefab, main)
 
 func go_to_upgrade():
-	_state = 'upgrade'
+	state = 'upgrade'
 	prepare_screen.disable()
 	upgrade_screen.enable()
 

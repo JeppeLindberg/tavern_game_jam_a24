@@ -1,13 +1,14 @@
 extends Node2D
 
 @onready var main:Node = get_node('/root/main')
+@onready var state_machine:Node2D = get_node('/root/main/state_machine')
 
 func _unhandled_input(event):
 	if event is InputEventMouse:
 		global_position = event.position
 
 	if event is InputEventMouseButton:
-		if (event.button_index == MOUSE_BUTTON_LEFT) and (event.pressed):
+		if (event.button_index == MOUSE_BUTTON_LEFT) and (event.pressed) and (state_machine.state == 'prepare'):
 			var nodes = main.get_nodes_at(event.position, 'building')
 			if not nodes.is_empty():
 				nodes[0].reparent(self)
@@ -26,4 +27,3 @@ func _unhandled_input(event):
 			var nodes = main.get_children_with_method(self, 'rotate_building')
 			for node in nodes:
 				node.rotate_building()
-

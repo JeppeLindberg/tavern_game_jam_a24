@@ -216,21 +216,11 @@ script = ExtResource("4_nma4j")
 
 [node name="h_container" type="HBoxContainer" parent="ui/upgrade_screen"]
 layout_mode = 1
-anchors_preset = 13
-anchor_left = 0.5
-anchor_right = 0.5
+anchors_preset = 9
 anchor_bottom = 1.0
-offset_left = -102.0
-offset_right = 102.0
-grow_horizontal = 2
+offset_right = 208.0
 grow_vertical = 2
 mouse_filter = 2
-
-[node name="selection" type="VBoxContainer" parent="ui/upgrade_screen/h_container"]
-layout_mode = 2
-size_flags_vertical = 4
-mouse_filter = 0
-theme_override_constants/separation = 20
 
 [node name="fill" type="Panel" parent="ui/upgrade_screen/h_container"]
 modulate = Color(1, 1, 1, 0)
@@ -238,11 +228,11 @@ custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="fill2" type="Panel" parent="ui/upgrade_screen/h_container"]
-modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(100, 100)
+[node name="selection" type="VBoxContainer" parent="ui/upgrade_screen/h_container"]
 layout_mode = 2
-mouse_filter = 2
+size_flags_vertical = 4
+mouse_filter = 0
+theme_override_constants/separation = 20
 
 [node name="game" type="Node2D" parent="."]
 
