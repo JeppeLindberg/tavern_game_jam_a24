@@ -49,6 +49,17 @@ func _get_children_with_method_recursive(node, method):
 			_result.append(child)
 				
 		_get_children_with_method_recursive(child, method)
+
+func get_all_children(node) -> Array:
+	_result = []
+	_get_all_children_recursive(node)
+	return _result
+
+func _get_all_children_recursive(node):
+	for child in node.get_children():
+		_result.append(child)
+				
+		_get_all_children_recursive(child)
 	
 func get_nodes_at(pos, group = '', collision_mask = 0):
 	var point:PhysicsPointQueryParameters2D = PhysicsPointQueryParameters2D.new()

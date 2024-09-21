@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://cthhug8sjflgn"]
+
+[ext_resource type="Texture2D" uid="uid://bf54vlicfi4vn" path="res://sprites/map.png" id="1_l2dgr"]
+[ext_resource type="FontFile" uid="uid://dj3dtbvwijcqq" path="res://fonts/ark-pixel-12px-proportional-latin.otf" id="2_m0010"]
+[ext_resource type="FontFile" uid="uid://c2xh68caapa32" path="res://fonts/ark-pixel-16px-proportional-latin.otf" id="3_4em0f"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s2nk3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ok47m"]
+
+[node name="upgrade_selection" type="PanelContainer"]
+theme_override_styles/panel = SubResource("StyleBoxEmpty_s2nk3")
+
+[node name="panel" type="NinePatchRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_l2dgr")
+region_rect = Rect2(122, 186, 44, 44)
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+
+[node name="margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="h_container" type="HBoxContainer" parent="margin"]
+layout_mode = 2
+
+[node name="center" type="CenterContainer" parent="margin/h_container"]
+layout_mode = 2
+
+[node name="text" type="RichTextLabel" parent="margin/h_container/center"]
+modulate = Color(0.94902, 0.941176, 0.898039, 1)
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("2_m0010")
+theme_override_fonts/bold_font = ExtResource("3_4em0f")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "[center][b]Lightning Tower[/b]
+[center]The quick brown fox jumps over the lazy dog"
+fit_content = true
+
+[node name="fill" type="PanelContainer" parent="margin/h_container"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ok47m")
+
+[node name="center" type="CenterContainer" parent="margin/h_container/fill"]
+layout_mode = 2

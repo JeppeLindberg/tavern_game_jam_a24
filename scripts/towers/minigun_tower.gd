@@ -15,7 +15,6 @@ var powered = false
 func _ready() -> void:
 	add_to_group('tower')
 
-
 func _process(_delta: float) -> void:
 	if powered:
 		shootable += main.delta_secs()
