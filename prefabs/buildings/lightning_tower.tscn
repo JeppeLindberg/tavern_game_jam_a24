@@ -13,6 +13,8 @@ size = Vector2(224, 224)
 
 [node name="lightning_tower" type="StaticBody2D"]
 script = ExtResource("1_3mknn")
+building_name = "Lightning Emitter"
+building_desc = "Blasts closest enemies with an area of effect attack"
 
 [node name="sprite" type="TileMapLayer" parent="."]
 position = Vector2(-16, -16)

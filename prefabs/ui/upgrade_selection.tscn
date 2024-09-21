@@ -1,15 +1,30 @@
-[gd_scene load_steps=6 format=3 uid="uid://cthhug8sjflgn"]
+[gd_scene load_steps=8 format=3 uid="uid://cthhug8sjflgn"]
 
 [ext_resource type="Texture2D" uid="uid://bf54vlicfi4vn" path="res://sprites/map.png" id="1_l2dgr"]
+[ext_resource type="Script" path="res://scripts/ui/upgrade_selection.gd" id="1_x023u"]
 [ext_resource type="FontFile" uid="uid://dj3dtbvwijcqq" path="res://fonts/ark-pixel-12px-proportional-latin.otf" id="2_m0010"]
 [ext_resource type="FontFile" uid="uid://c2xh68caapa32" path="res://fonts/ark-pixel-16px-proportional-latin.otf" id="3_4em0f"]
+[ext_resource type="Script" path="res://scripts/ui/show_hide.gd" id="3_hcsj8"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s2nk3"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0hrlt"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ok47m"]
 
 [node name="upgrade_selection" type="PanelContainer"]
-theme_override_styles/panel = SubResource("StyleBoxEmpty_s2nk3")
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = -1
+anchor_right = 0.50625
+anchor_bottom = 0.333333
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxEmpty_0hrlt")
+script = ExtResource("1_x023u")
+metadata/_edit_use_anchors_ = true
+
+[node name="Button" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
 
 [node name="panel" type="NinePatchRect" parent="."]
 layout_mode = 2
@@ -19,6 +34,17 @@ patch_margin_left = 6
 patch_margin_top = 6
 patch_margin_right = 6
 patch_margin_bottom = 6
+
+[node name="hovering" type="NinePatchRect" parent="."]
+visible = false
+layout_mode = 2
+texture = ExtResource("1_l2dgr")
+region_rect = Rect2(250, 186, 44, 44)
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+script = ExtResource("3_hcsj8")
 
 [node name="margin" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -37,6 +63,7 @@ layout_mode = 2
 modulate = Color(0.94902, 0.941176, 0.898039, 1)
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+mouse_filter = 1
 theme_override_fonts/normal_font = ExtResource("2_m0010")
 theme_override_fonts/bold_font = ExtResource("3_4em0f")
 theme_override_font_sizes/normal_font_size = 12
@@ -54,3 +81,7 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_ok47m")
 
 [node name="center" type="CenterContainer" parent="margin/h_container/fill"]
 layout_mode = 2
+
+[connection signal="mouse_entered" from="." to="hovering" method="set_show"]
+[connection signal="mouse_exited" from="." to="hovering" method="set_hide"]
+[connection signal="button_up" from="Button" to="." method="_on_button_button_up"]

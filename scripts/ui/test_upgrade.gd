@@ -1,15 +1,6 @@
 extends Button
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
+@onready var state_machine:Node2D = get_node('/root/main/state_machine')
 
 func _on_button_up() -> void:
-	pass # Replace with function body.
+	state_machine.go_to_upgrade()

@@ -3,7 +3,6 @@ extends Node
 @onready var game:Node2D = get_node('/root/main/game')
 @onready var tiles:Node2D = get_node('/root/main/game/tiles')
 
-@export var enemy_prefab: PackedScene
 @export_flags_2d_physics var basic_layer
 @export_flags_2d_physics var enemy_layer
 
@@ -11,12 +10,6 @@ var _curr_secs:float
 var _delta_secs:float
 
 func _ready() -> void:
-	create_node(enemy_prefab, self)
-	create_node(enemy_prefab, self)
-	create_node(enemy_prefab, self)
-	create_node(enemy_prefab, self)
-	create_node(enemy_prefab, self)
-	create_node(enemy_prefab, self)
 	tiles.recalc_tiles()
 
 func _process(_delta: float) -> void:

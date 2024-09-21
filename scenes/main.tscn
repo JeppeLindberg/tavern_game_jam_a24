@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://d20di8qihq3kr"]
+[gd_scene load_steps=22 format=4 uid="uid://d20di8qihq3kr"]
 
 [ext_resource type="TileSet" uid="uid://c7erlb2ig5mgi" path="res://tileset.tres" id="1_88jxe"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_pygd1"]
@@ -13,11 +13,13 @@
 [ext_resource type="Script" path="res://scripts/ui/confirm.gd" id="4_l8ix8"]
 [ext_resource type="Script" path="res://scripts/ui/enable_disable.gd" id="4_nma4j"]
 [ext_resource type="Script" path="res://scripts/path.gd" id="4_yvfx1"]
+[ext_resource type="Script" path="res://scripts/ui/test_upgrade.gd" id="5_6fapn"]
 [ext_resource type="Script" path="res://scripts/ui/show_hide.gd" id="5_27mk2"]
 [ext_resource type="FontFile" uid="uid://c2xh68caapa32" path="res://fonts/ark-pixel-16px-proportional-latin.otf" id="5_spjcf"]
 [ext_resource type="PackedScene" uid="uid://di3ptoulkfh7b" path="res://prefabs/inventory_tile.tscn" id="7_0xxjd"]
 [ext_resource type="PackedScene" uid="uid://csxmaro11gudj" path="res://prefabs/buildings/lightning_tower.tscn" id="9_ang0u"]
 [ext_resource type="PackedScene" uid="uid://mfvh04f4ycms" path="res://prefabs/buildings/minigun_tower.tscn" id="10_8mggg"]
+[ext_resource type="Script" path="res://scripts/upgrades.gd" id="17_7cpyy"]
 
 [sub_resource type="Curve2D" id="Curve2D_i4qol"]
 bake_interval = 1.0
@@ -28,12 +30,12 @@ point_count = 7
 
 [node name="main" type="Node"]
 script = ExtResource("1_pygd1")
-enemy_prefab = ExtResource("2_pr7xw")
 basic_layer = 1
 enemy_layer = 2
 
 [node name="state_machine" type="Node2D" parent="."]
 script = ExtResource("3_wl8st")
+enemy_prefab = ExtResource("2_pr7xw")
 
 [node name="ui" type="Control" parent="."]
 z_index = 1000
@@ -74,6 +76,7 @@ size_flags_vertical = 8
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(100, 30)
 layout_mode = 2
+script = ExtResource("5_6fapn")
 
 [node name="panel" type="NinePatchRect" parent="ui/prepare_screen/h_container/v_container/test_upgrade"]
 layout_mode = 1
@@ -229,9 +232,6 @@ size_flags_vertical = 4
 mouse_filter = 0
 theme_override_constants/separation = 20
 
-[node name="container" parent="ui/upgrade_screen/h_container/selection" instance=ExtResource("3_wsfi3")]
-layout_mode = 2
-
 [node name="fill" type="Panel" parent="ui/upgrade_screen/h_container"]
 modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(100, 100)
@@ -265,6 +265,11 @@ time_between_spawns = 0.75
 
 [node name="active" type="Node2D" parent="game"]
 
+[node name="upgrades" type="Node2D" parent="game"]
+script = ExtResource("17_7cpyy")
+upgrade_selection_prefab = ExtResource("3_wsfi3")
+buildings = [ExtResource("9_ang0u"), ExtResource("10_8mggg")]
+
 [node name="effects" type="Node2D" parent="game"]
 
 [node name="recycler" type="Node2D" parent="game"]
@@ -277,6 +282,7 @@ position = Vector2(75, 77)
 [node name="minigun_tower" parent="game/inventory" instance=ExtResource("10_8mggg")]
 position = Vector2(112, 192)
 
+[connection signal="button_up" from="ui/prepare_screen/h_container/v_container/test_upgrade" to="ui/prepare_screen/h_container/v_container/test_upgrade" method="_on_button_up"]
 [connection signal="mouse_entered" from="ui/prepare_screen/h_container/v_container/test_upgrade" to="ui/prepare_screen/h_container/v_container/test_upgrade/hovering" method="set_show"]
 [connection signal="mouse_exited" from="ui/prepare_screen/h_container/v_container/test_upgrade" to="ui/prepare_screen/h_container/v_container/test_upgrade/hovering" method="set_hide"]
 [connection signal="button_up" from="ui/prepare_screen/h_container/v_container/confirm" to="ui/prepare_screen/h_container/v_container/confirm" method="_on_button_up"]

@@ -6,6 +6,9 @@ extends StaticBody2D
 @onready var inventory: Node2D = get_node('/root/main/game/inventory')
 @onready var tiles: Node2D = get_node('/root/main/game/tiles')
 
+@export var building_name:String = 'Name'
+@export var building_desc:String = 'Description'
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	add_to_group('building')
@@ -13,8 +16,9 @@ func _ready() -> void:
 	var avg_pos = Vector2.ZERO;
 	var no_of_shapes = 0
 	for child in get_children():
-		no_of_shapes += 1
-		avg_pos += child.position
+		if child is CollisionShape2D:
+			no_of_shapes += 1
+			avg_pos += child.position
 
 	for child in get_children():
 		child.position -= avg_pos / no_of_shapes
