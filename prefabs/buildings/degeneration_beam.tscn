@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://c4c6w4apt54hw"]
+[gd_scene load_steps=6 format=3 uid="uid://c4c6w4apt54hw"]
 
 [ext_resource type="Script" path="res://scripts/building.gd" id="1_vxcsb"]
 [ext_resource type="TileSet" uid="uid://c7erlb2ig5mgi" path="res://tileset.tres" id="2_6msbm"]
+[ext_resource type="Script" path="res://scripts/towers/degeneration_beam.gd" id="3_hicu5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jbq41"]
 size = Vector2(32, 32)
@@ -30,6 +31,7 @@ debug_color = Color(0, 0.6, 0.701961, 0)
 
 [node name="tower" type="Area2D" parent="."]
 position = Vector2(0, 32)
+script = ExtResource("3_hicu5")
 
 [node name="collider" type="CollisionShape2D" parent="tower"]
 position = Vector2(0, 112)
