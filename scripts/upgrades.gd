@@ -7,6 +7,10 @@ extends Node2D
 @export var buildings:Array = []
 
 
+func generate_beginning_buildings():
+	var node = main.create_node(buildings[0], main)
+	node.drop()
+
 func generate_upgrades():
 	var possible_upgrades = buildings.duplicate()
 	possible_upgrades.shuffle()

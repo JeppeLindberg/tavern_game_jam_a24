@@ -2,6 +2,7 @@ extends Node
 
 @onready var game:Node2D = get_node('/root/main/game')
 @onready var tiles:Node2D = get_node('/root/main/game/tiles')
+@onready var upgrades:Node2D = get_node('/root/main/game/upgrades')
 
 @export_flags_2d_physics var basic_layer
 @export_flags_2d_physics var enemy_layer
@@ -9,10 +10,16 @@ extends Node
 var _curr_secs:float
 var _delta_secs:float
 
+var initalize = true
+
 func _ready() -> void:
 	tiles.recalc_tiles()
 
 func _process(_delta: float) -> void:
+	if initalize:
+		upgrades.generate_beginning_buildings()
+		initalize = false
+
 	var time_elapsed = float(Time.get_ticks_msec()) / 1000.0;
 	_delta_secs = time_elapsed - _curr_secs
 	_curr_secs = time_elapsed

@@ -222,12 +222,6 @@ region_rect = Rect2(448, 109, 96, 8)
 
 [node name="inventory" type="Node2D" parent="game"]
 
-[node name="footprint" parent="game/inventory" instance=ExtResource("9_ang0u")]
-position = Vector2(75, 77)
-
-[node name="minigun_tower" parent="game/inventory" instance=ExtResource("10_8mggg")]
-position = Vector2(112, 192)
-
 [connection signal="button_up" from="ui/prepare_screen/h_container/v_container/confirm" to="ui/prepare_screen/h_container/v_container/confirm" method="_on_button_up"]
 [connection signal="mouse_entered" from="ui/prepare_screen/h_container/v_container/confirm" to="ui/prepare_screen/h_container/v_container/confirm/hovering" method="set_show"]
 [connection signal="mouse_exited" from="ui/prepare_screen/h_container/v_container/confirm" to="ui/prepare_screen/h_container/v_container/confirm/hovering" method="set_hide"]
