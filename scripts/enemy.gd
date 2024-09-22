@@ -2,6 +2,8 @@ extends Node2D
 
 
 @onready var path:Path2D = get_node('/root/main/game/path')
+@onready var recycler:Node2D = get_node('/root/main/game/recycler')
+@onready var state_machine:Node2D = get_node('/root/main/state_machine')
 @onready var main:Node = get_node('/root/main')
 @onready var healthbar:Node2D = get_node('healthbar')
 
@@ -16,6 +18,7 @@ var health:float
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	state_machine.enemy_spawned()
 	follow = main.create_node(path_follow, path)
 	follow.progress = 0;
 	reparent(follow, false)
@@ -39,4 +42,6 @@ func take_damage(damage):
 	health-=damage
 	healthbar.set_pct(health/max_health)
 	if health <= 0:
+		recycler.add_scrap(20.0)
+		state_machine.enemy_killed()
 		queue_free()

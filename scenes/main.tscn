@@ -13,13 +13,13 @@
 [ext_resource type="Script" path="res://scripts/ui/confirm.gd" id="4_l8ix8"]
 [ext_resource type="Script" path="res://scripts/ui/enable_disable.gd" id="4_nma4j"]
 [ext_resource type="Script" path="res://scripts/path.gd" id="4_yvfx1"]
-[ext_resource type="Script" path="res://scripts/ui/test_upgrade.gd" id="5_6fapn"]
 [ext_resource type="Script" path="res://scripts/ui/show_hide.gd" id="5_27mk2"]
 [ext_resource type="FontFile" uid="uid://c2xh68caapa32" path="res://fonts/ark-pixel-16px-proportional-latin.otf" id="5_spjcf"]
 [ext_resource type="PackedScene" uid="uid://di3ptoulkfh7b" path="res://prefabs/inventory_tile.tscn" id="7_0xxjd"]
 [ext_resource type="PackedScene" uid="uid://csxmaro11gudj" path="res://prefabs/buildings/lightning_tower.tscn" id="9_ang0u"]
 [ext_resource type="PackedScene" uid="uid://mfvh04f4ycms" path="res://prefabs/buildings/minigun_tower.tscn" id="10_8mggg"]
 [ext_resource type="Script" path="res://scripts/upgrades.gd" id="17_7cpyy"]
+[ext_resource type="Script" path="res://scripts/recycler.gd" id="21_e1wkv"]
 
 [sub_resource type="Curve2D" id="Curve2D_i4qol"]
 bake_interval = 1.0
@@ -71,69 +71,6 @@ grow_vertical = 2
 [node name="v_container" type="VBoxContainer" parent="ui/prepare_screen/h_container"]
 layout_mode = 2
 size_flags_vertical = 8
-
-[node name="test_upgrade" type="Button" parent="ui/prepare_screen/h_container/v_container"]
-self_modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(100, 30)
-layout_mode = 2
-script = ExtResource("5_6fapn")
-
-[node name="panel" type="NinePatchRect" parent="ui/prepare_screen/h_container/v_container/test_upgrade"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("3_ybh3m")
-region_rect = Rect2(186, 186, 44, 44)
-patch_margin_left = 6
-patch_margin_top = 6
-patch_margin_right = 6
-patch_margin_bottom = 6
-
-[node name="hovering" type="NinePatchRect" parent="ui/prepare_screen/h_container/v_container/test_upgrade"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("3_ybh3m")
-region_rect = Rect2(250, 186, 44, 44)
-patch_margin_left = 6
-patch_margin_top = 6
-patch_margin_right = 6
-patch_margin_bottom = 6
-script = ExtResource("5_27mk2")
-
-[node name="center" type="CenterContainer" parent="ui/prepare_screen/h_container/v_container/test_upgrade"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="text" type="RichTextLabel" parent="ui/prepare_screen/h_container/v_container/test_upgrade/center"]
-modulate = Color(0.94902, 0.941176, 0.898039, 1)
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-mouse_filter = 2
-theme_override_fonts/normal_font = ExtResource("4_0fcbf")
-theme_override_fonts/bold_font = ExtResource("5_spjcf")
-theme_override_font_sizes/normal_font_size = 12
-bbcode_enabled = true
-text = "[center][b]Upgrade[/b]"
-fit_content = true
-
-[node name="fill2" type="Panel" parent="ui/prepare_screen/h_container/v_container"]
-modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(20, 20)
-layout_mode = 2
-mouse_filter = 1
 
 [node name="confirm" type="Button" parent="ui/prepare_screen/h_container/v_container"]
 self_modulate = Color(1, 1, 1, 0)
@@ -263,6 +200,25 @@ buildings = [ExtResource("9_ang0u"), ExtResource("10_8mggg")]
 [node name="effects" type="Node2D" parent="game"]
 
 [node name="recycler" type="Node2D" parent="game"]
+position = Vector2(419, 327)
+script = ExtResource("21_e1wkv")
+
+[node name="backplate" type="Sprite2D" parent="game/recycler"]
+texture = ExtResource("3_ybh3m")
+region_enabled = true
+region_rect = Rect2(444, 74, 104, 12)
+
+[node name="meter_clip" type="Sprite2D" parent="game/recycler/backplate"]
+clip_children = 1
+texture = ExtResource("3_ybh3m")
+region_enabled = true
+region_rect = Rect2(448, 109, 96, 8)
+
+[node name="meter" type="Sprite2D" parent="game/recycler/backplate/meter_clip"]
+position = Vector2(-96, 0)
+texture = ExtResource("3_ybh3m")
+region_enabled = true
+region_rect = Rect2(448, 109, 96, 8)
 
 [node name="inventory" type="Node2D" parent="game"]
 
@@ -272,9 +228,6 @@ position = Vector2(75, 77)
 [node name="minigun_tower" parent="game/inventory" instance=ExtResource("10_8mggg")]
 position = Vector2(112, 192)
 
-[connection signal="button_up" from="ui/prepare_screen/h_container/v_container/test_upgrade" to="ui/prepare_screen/h_container/v_container/test_upgrade" method="_on_button_up"]
-[connection signal="mouse_entered" from="ui/prepare_screen/h_container/v_container/test_upgrade" to="ui/prepare_screen/h_container/v_container/test_upgrade/hovering" method="set_show"]
-[connection signal="mouse_exited" from="ui/prepare_screen/h_container/v_container/test_upgrade" to="ui/prepare_screen/h_container/v_container/test_upgrade/hovering" method="set_hide"]
 [connection signal="button_up" from="ui/prepare_screen/h_container/v_container/confirm" to="ui/prepare_screen/h_container/v_container/confirm" method="_on_button_up"]
 [connection signal="mouse_entered" from="ui/prepare_screen/h_container/v_container/confirm" to="ui/prepare_screen/h_container/v_container/confirm/hovering" method="set_show"]
 [connection signal="mouse_exited" from="ui/prepare_screen/h_container/v_container/confirm" to="ui/prepare_screen/h_container/v_container/confirm/hovering" method="set_hide"]
