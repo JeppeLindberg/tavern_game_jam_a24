@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4c6w4apt54hw"]
+
+[ext_resource type="Script" path="res://scripts/building.gd" id="1_vxcsb"]
+[ext_resource type="TileSet" uid="uid://c7erlb2ig5mgi" path="res://tileset.tres" id="2_6msbm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jbq41"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_126m7"]
+size = Vector2(12, 224)
+
+[node name="degeneration_tower" type="StaticBody2D"]
+script = ExtResource("1_vxcsb")
+building_name = "Minigun Tower"
+building_desc = "Shoots a hail of bullets in a single direction"
+
+[node name="sprite" type="TileMapLayer" parent="."]
+position = Vector2(-16, -16)
+tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 8, 0, 0, 0, 0, 0, 1, 0, 0, 0, 4, 0, 9, 0, 0, 0)
+tile_set = ExtResource("2_6msbm")
+
+[node name="collider" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jbq41")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="collider2" type="CollisionShape2D" parent="."]
+position = Vector2(0, 32)
+shape = SubResource("RectangleShape2D_jbq41")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="tower" type="Area2D" parent="."]
+position = Vector2(0, 32)
+
+[node name="collider" type="CollisionShape2D" parent="tower"]
+position = Vector2(0, 112)
+shape = SubResource("RectangleShape2D_126m7")
+debug_color = Color(0, 0.650687, 0.0751695, 0.42)
